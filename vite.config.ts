@@ -1,40 +1,40 @@
-import { defineConfig } from 'vite'
-import path from 'path'
-import { commonPlugin } from './plugin'
+import { defineConfig } from "vite";
+import path from "path";
+import { commonPlugin } from "./plugin";
 const baseUrl = {
-  development: './',
-  release: './',
-}
+  development: "./",
+  release: "./",
+};
 // https://vitejs.dev/config/
-export default ({ mode, commen }) => {
+export default ({ mode, command }) => {
   return defineConfig({
     css: {
       preprocessorOptions: {
         less: {
           modifyVars: {
-            'root-entry-name': 'variable',
+            "root-entry-name": "variable",
           },
           javascriptEnabled: true,
         },
       },
     },
-    plugins: [commonPlugin(commen)],
+    plugins: [commonPlugin(command)],
     base: baseUrl[mode],
     resolve: {
       alias: [
-        { find: /^~/, replacement: '' },
-        { find: /^@\//, replacement: path.resolve(__dirname) + '/src/' },
+        { find: /^~/, replacement: "" },
+        { find: /^@\//, replacement: path.resolve(__dirname) + "/src/" },
       ],
-      extensions: ['.tsx', '.ts', '.jsx', '.js'],
+      extensions: [".tsx", ".ts", ".jsx", ".js"],
     },
     server: {
-      host: '0.0.0.0',
+      host: "0.0.0.0",
       port: 8080,
       proxy: {
-        '/api': {
-          target: 'http://backend-api-02.newbee.ltd/manage-api/v1',
+        "/api": {
+          target: "http://backend-api-02.newbee.ltd/manage-api/v1",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(/^\/api/, ""),
         },
       },
     },
@@ -51,5 +51,5 @@ export default ({ mode, commen }) => {
     //   },
     // },
     build: {},
-  })
-}
+  });
+};
