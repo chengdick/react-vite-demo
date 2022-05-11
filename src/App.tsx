@@ -1,17 +1,18 @@
-import { ConfigProvider } from 'antd'
+import { ConfigProvider } from "antd";
 import {
   BrowserRouter as Router,
   Navigate,
   Route,
   Routes,
-} from 'react-router-dom'
-import { AsyncComponent } from './components/AsyncComponent'
-import Layout from './components/Layout'
+} from "react-router-dom";
+import { AsyncComponent } from "./components/AsyncComponent";
+import Layout from "./components/Layout";
 ConfigProvider.config({
   theme: {
-    primaryColor: '#25b864',
+    primaryColor: "#25b864",
   },
-})
+});
+console.log(new WasmPlayer());
 const App = (): any => {
   return (
     <Router>
@@ -28,7 +29,7 @@ const App = (): any => {
         <Route path="*" element={<Navigate to="/notFound" replace />} />
       </Routes>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;

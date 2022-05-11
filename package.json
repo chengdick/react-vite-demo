@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build && npm run copy",
+    "preview": "vite preview",
+    "copy": "scp -r ./vid/* dist"
   },
   "dependencies": {
     "@ant-design/pro-form": "^1.67.0",
