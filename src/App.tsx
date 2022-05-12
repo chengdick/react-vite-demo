@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { AsyncComponent } from "./components/AsyncComponent";
 import Layout from "./components/Layout";
+import { a } from "@/utils/const";
 ConfigProvider.config({
   theme: {
     primaryColor: "#25b864",
