@@ -2,8 +2,14 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { viteExternalsPlugin } from "vite-plugin-externals";
 import htmlPlugin from "vite-plugin-html-config";
+import viteReplaceCode from "./vite-replace-code";
+import importCss from "./importCss";
 export const commonPlugin = (command: string) => {
-  const common: Array<any> = [react()];
+  const common: Array<any> = [
+    react(),
+    viteReplaceCode({ fileId: "@hanyk_rc-viewer" }),
+    importCss({ antdLess: true }),
+  ];
   let dev: Array<any> = [];
   let prod: Array<any> = [];
   if (command != "serve") {
@@ -31,12 +37,11 @@ export const commonPlugin = (command: string) => {
       })
     );
   } else {
-    console.log(11);
     dev.push(
       htmlPlugin({
         headScripts: [
           {
-            src: "./vid/EasyWasmPlayer.js",
+            src: "/vid/EasyWasmPlayer.js",
           },
         ],
       })
