@@ -13,7 +13,6 @@ export default function viteReplaceCode(options: viteReplaceCodeOptions) {
           ? transformRequireCode(code, id)
           : transformRequire(code, id);
       }
-      // console.log(result);
       return {
         code: result,
         map: null,

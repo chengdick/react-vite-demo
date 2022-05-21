@@ -1,9 +1,10 @@
 import react from "@vitejs/plugin-react";
-import path from "path";
+// import path from "path";
 import { viteExternalsPlugin } from "vite-plugin-externals";
 import htmlPlugin from "vite-plugin-html-config";
 import viteReplaceCode from "./vite-replace-code";
 import importCss from "./importCss";
+
 export const commonPlugin = (command: string) => {
   const common: Array<any> = [
     react(),
