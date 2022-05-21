@@ -2,3 +2,4 @@
 declare const WasmPlayer: any;
 declare module "@hanyk/rc-viewer";
 declare module "react-virtualized";
+declare module "react-resizable";

@@ -17,10 +17,12 @@
     "axios": "^0.27.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-resizable": "^3.0.4",
     "react-router-dom": "^6.3.0",
     "react-virtualized": "^9.22.3"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^4.0.0",
     "@types/node": "^17.0.31",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
@@ -31,7 +33,6 @@
     "vite": "^2.9.7",
     "vite-plugin-externals": "^0.5.0",
     "vite-plugin-html-config": "^1.0.8",
-    "vite-plugin-require-transform": "^1.0.3",
-    "@rollup/plugin-replace": "^4.0.0"
+    "vite-plugin-require-transform": "^1.0.3"
   }
 }
