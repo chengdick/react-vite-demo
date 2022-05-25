@@ -4,10 +4,11 @@ import { viteExternalsPlugin } from "vite-plugin-externals";
 import htmlPlugin from "vite-plugin-html-config";
 import viteReplaceCode from "./vite-replace-code";
 import importCss from "./importCss";
-
+import mdx from "vite-plugin-mdx";
 export const commonPlugin = (command: string) => {
   const common: Array<any> = [
     react(),
+    mdx(),
     viteReplaceCode({ fileId: "@hanyk_rc-viewer" }),
     importCss({ antdLess: true }),
   ];

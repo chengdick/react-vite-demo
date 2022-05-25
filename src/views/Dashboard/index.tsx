@@ -7,6 +7,7 @@ import { Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css"; // only needs to be imported once
 const { RangePicker } = DatePicker;
 // console.log(RcViewer, "lll");
+import Hello from "../../hello.mdx";
 const Dashboard = () => {
   const list = [
     { name: "Brian Vaughn", description: "Software engineer" },
@@ -14,6 +15,7 @@ const Dashboard = () => {
   ];
   return (
     <div>
+      <Hello />
       {/* <Button type="primary">11111</Button>
       <Button type="primary">
         <Link to="/dashboard">返回首页</Link>

@@ -23,7 +23,7 @@ export default function importCss(options: importCssOptions) {
             .slice(code.split(";").length - 2, code.split(";").length)
             .join("\n"),
         ].join("\n");
-        console.log(result);
+        // console.log(result);
       }
 
       return {

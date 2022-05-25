@@ -176,7 +176,7 @@ export default () => {
       // });
     };
 
-  const ResizableTitle = (props) => {
+  const ResizableTitle = (props: any) => {
     const { onResize, width, ...restProps } = props;
 
     if (!width) {

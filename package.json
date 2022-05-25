@@ -19,7 +19,10 @@
     "react-dom": "^18.0.0",
     "react-resizable": "^3.0.4",
     "react-router-dom": "^6.3.0",
-    "react-virtualized": "^9.22.3"
+    "react-virtualized": "^9.22.3",
+    "vite-plugin-mdx": "^3.5.10",
+    "@mdx-js/mdx": "^1.6.22",
+    "@mdx-js/react": "^1.6.22"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^4.0.0",

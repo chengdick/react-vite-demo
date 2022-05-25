@@ -25,7 +25,7 @@ export default ({ mode, command }) => {
         { find: /^~/, replacement: "" },
         { find: /^@\//, replacement: path.resolve(__dirname) + "/src/" },
       ],
-      extensions: [".tsx", ".ts", ".jsx", ".js"],
+      extensions: [".tsx", ".ts", ".jsx", ".js", ".mdx"],
     },
     server: {
       host: "0.0.0.0",
