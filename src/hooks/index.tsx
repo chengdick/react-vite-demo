@@ -4,6 +4,7 @@ interface DragMenuProps {
   initWidth?: number;
   parentClass?: string;
   initStyle?: string;
+  direction?: string;
 }
 
 const useSiderDragWidth = ({
@@ -16,9 +17,11 @@ const useSiderDragWidth = ({
   cursor: col-resize;
   z-index: 112;
   top: 0;`,
+  direction = "right",
 }: DragMenuProps) => {
   const [width, setWidth] = useState(initWidth);
   useEffect(() => {
+    let w: any = null;
     if (document.querySelector(parentClass)) {
       let node = document.createElement("div");
       node.setAttribute(
@@ -27,7 +30,10 @@ const useSiderDragWidth = ({
        ${initStyle}
         `
       );
+
       node.onmousedown = function (e: MouseEvent) {
+        w = e.clientX;
+        console.log(e);
         e.preventDefault();
         document.onmousemove = mouseMove;
         document.onmouseup = mouseUp;
@@ -37,7 +43,11 @@ const useSiderDragWidth = ({
     let event = null;
     function mouseMove(e: MouseEvent) {
       event = e || window.event;
-      setWidth(event.clientX);
+      if (direction === "right") {
+        setWidth(event.clientX + initWidth - w);
+      } else {
+        setWidth(initWidth - (event.clientX + initWidth - w) + initWidth);
+      }
     }
     //终止事件
     function mouseUp() {

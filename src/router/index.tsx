@@ -1,28 +1,35 @@
-import { CrownOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons'
+import { CrownOutlined, UserOutlined, SmileOutlined } from "@ant-design/icons";
 const menus: any = [
   // 菜单相关路由
   {
-    path: '/dashboard',
+    path: "/dashboard",
     //   key: '/dashboard',
-    name: '首页',
+    name: "首页",
     icon: <CrownOutlined />,
-    component: 'Dashboard',
+    component: "Dashboard",
   },
   {
-    path: '/role',
+    path: "/role",
     //   key: '/role',
-    name: '角色',
+    name: "角色",
     icon: <CrownOutlined />,
     routes: [
       {
         //   key: '1',
-        path: '/role/list',
-        name: '角色列表',
-        component: 'List',
+        path: "/role/list",
+        name: "角色列表",
+        component: "List",
         // hideInBreadcrumb: true,
       },
     ],
   },
-]
+  {
+    path: "/drag",
+    //   key: '/dashboard',
+    name: "布局",
+    icon: <CrownOutlined />,
+    component: "Drag",
+  },
+];
 
-export default menus
+export default menus;
