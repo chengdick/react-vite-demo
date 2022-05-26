@@ -22,6 +22,7 @@ const useSiderDragWidth = ({
   const [width, setWidth] = useState(initWidth);
   useEffect(() => {
     let onmousedownWidth: any = null;
+    let offsetWidth: any = null;
     if (document.querySelector(parentClass)) {
       let node = document.createElement("div");
       node.setAttribute(
@@ -32,8 +33,10 @@ const useSiderDragWidth = ({
       );
 
       node.onmousedown = function (e: MouseEvent) {
+        console.log(e, "e");
         onmousedownWidth = e.clientX;
-        console.log(e);
+        offsetWidth = (document.querySelector(parentClass) as HTMLElement)
+          ?.offsetWidth;
         e.preventDefault();
         document.onmousemove = mouseMove;
         document.onmouseup = mouseUp;
@@ -44,10 +47,12 @@ const useSiderDragWidth = ({
     function mouseMove(e: MouseEvent) {
       event = e || window.event;
       if (direction === "right") {
-        setWidth(event.clientX + initWidth - onmousedownWidth);
+        setWidth(event.clientX + offsetWidth - onmousedownWidth);
       } else {
         setWidth(
-          initWidth - (event.clientX + initWidth - onmousedownWidth) + initWidth
+          offsetWidth -
+            (event.clientX + offsetWidth - onmousedownWidth) +
+            offsetWidth
         );
       }
     }

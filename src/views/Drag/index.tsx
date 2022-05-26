@@ -2,6 +2,7 @@ import { useSiderDragWidth } from "@/hooks";
 import "./index.less";
 const Drag = () => {
   const { width } = useSiderDragWidth({ parentClass: ".left" });
+  //   console.log(width, "llll");
   const div = useSiderDragWidth({
     parentClass: ".right",
     initStyle: `
