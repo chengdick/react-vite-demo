@@ -21,7 +21,7 @@ const useSiderDragWidth = ({
 }: DragMenuProps) => {
   const [width, setWidth] = useState(initWidth);
   useEffect(() => {
-    let w: any = null;
+    let onmousedownWidth: any = null;
     if (document.querySelector(parentClass)) {
       let node = document.createElement("div");
       node.setAttribute(
@@ -32,7 +32,7 @@ const useSiderDragWidth = ({
       );
 
       node.onmousedown = function (e: MouseEvent) {
-        w = e.clientX;
+        onmousedownWidth = e.clientX;
         console.log(e);
         e.preventDefault();
         document.onmousemove = mouseMove;
@@ -44,9 +44,11 @@ const useSiderDragWidth = ({
     function mouseMove(e: MouseEvent) {
       event = e || window.event;
       if (direction === "right") {
-        setWidth(event.clientX + initWidth - w);
+        setWidth(event.clientX + initWidth - onmousedownWidth);
       } else {
-        setWidth(initWidth - (event.clientX + initWidth - w) + initWidth);
+        setWidth(
+          initWidth - (event.clientX + initWidth - onmousedownWidth) + initWidth
+        );
       }
     }
     //终止事件
