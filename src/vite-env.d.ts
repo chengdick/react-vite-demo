@@ -4,6 +4,6 @@ declare module "@hanyk/rc-viewer";
 declare module "react-virtualized";
 declare module "react-resizable";
 declare module "*.mdx" {
-  let MDXComponent: (props: Record<string, unknown>) => JSX.Element;
+  const MDXComponent: (props: Record<string, unknown>) => JSX.Element;
   export default MDXComponent;
 }
