@@ -17,7 +17,7 @@ export default function importCss(options: importCssOptions) {
             .split(";")
             .slice(0, code.split(";").length - 2)
             .join("\n"),
-          `import "antd/dist/antd.variable.min.css";\n`,
+          `import "antd/dist/antd.min.css";\n`,
           code
             .split(";")
             .slice(code.split(";").length - 2, code.split(";").length)

@@ -5,6 +5,7 @@ import htmlPlugin from "vite-plugin-html-config";
 import viteReplaceCode from "./vite-replace-code";
 import importCss from "./importCss";
 import mdx from "vite-plugin-mdx";
+import legacy from "@vitejs/plugin-legacy";
 export const commonPlugin = (command: string) => {
   const common: Array<any> = [
     react(),
@@ -23,20 +24,27 @@ export const commonPlugin = (command: string) => {
       // }),
       htmlPlugin({
         headScripts: [
-          {
-            src: "/EasyWasmPlayer.js",
-          },
           // {
-          //   src: "//cdn.jsdelivr.net/npm/react@18.1.0/umd/react.production.min.js",
+          //   src: "/EasyWasmPlayer.js",
           // },
           // {
-          //   src: "//cdn.jsdelivr.net/npm/react-dom@18.1.0/umd/react-dom.production.min.js",
+          //   src: "//unpkg.zhimg.com/react@18.1.0/umd/react.production.min.js",
           // },
           // {
-          //   src: "//cdn.jsdelivr.net/npm/axios@0.27.2/dist/axios.min.js",
+          //   src: "//unpkg.zhimg.com/react-dom@18.1.0/umd/react-dom.production.min.js",
+          // },
+          // {
+          //   src: "//unpkg.zhimg.com/axios@0.20.0/dist/axios.min.js",
           // },
         ],
+      }),
+      legacy({
+        targets: ["defaults", "ie >= 11"],
       })
+      // legacy({
+      //   targets: ['ie >= 11'],
+      //   additionalLegacyPolyfills: ['regenerator-runtime/runtime']
+      // })
     );
   } else {
     dev.push(

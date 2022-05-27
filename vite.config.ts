@@ -12,7 +12,7 @@ export default ({ mode, command }) => {
       preprocessorOptions: {
         less: {
           modifyVars: {
-            "root-entry-name": "variable",
+            // "root-entry-name": "variable",
           },
           javascriptEnabled: true,
         },
@@ -40,16 +40,15 @@ export default ({ mode, command }) => {
     },
     // build: {
     //   rollupOptions: {
-    //     external: ['react', 'react-dom'],
+    //     external: ["react", "react-dom"],
     //     // context: 'window',
     //     output: {
     //       globals: {
-    //         react: 'React',
-    //         'react-dom': 'ReactDOM',
+    //         react: "react",
+    //         "react-dom": "react-dom",
     //       },
     //     },
     //   },
     // },
-    build: {},
   });
 };
