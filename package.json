@@ -12,6 +12,7 @@
     "@ant-design/pro-form": "^1.67.0",
     "@ant-design/pro-layout": "^6.32.1",
     "@ant-design/pro-table": "^2.74.0",
+    "@easydarwin/easywasmplayer": "^4.0.13",
     "@hanyk/rc-viewer": "^0.0.3",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",

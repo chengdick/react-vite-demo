@@ -47,15 +47,15 @@ export const commonPlugin = (command: string) => {
       // })
     );
   } else {
-    dev.push(
-      htmlPlugin({
-        headScripts: [
-          {
-            src: "/vid/EasyWasmPlayer.js",
-          },
-        ],
-      })
-    );
+    // dev.push(
+    //   htmlPlugin({
+    //     headScripts: [
+    //       {
+    //         src: "/vid/EasyWasmPlayer.js",
+    //       },
+    //     ],
+    //   })
+    // );
   }
 
   return [...common, ...dev, ...prod];
