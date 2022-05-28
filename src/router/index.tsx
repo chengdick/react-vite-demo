@@ -30,6 +30,13 @@ const menus: any = [
     icon: <CrownOutlined />,
     component: "Drag",
   },
+  {
+    path: "/grid",
+    //   key: '/dashboard',
+    name: "ReactGridLayout",
+    icon: <CrownOutlined />,
+    component: "ReactGridLayout",
+  },
 ];
 
 export default menus;
