@@ -71,33 +71,49 @@ interface ResizableProps {
   width?: number;
 }
 
-const useResizableColumns = (columnslist: ResizableProps[]) => {
+const useResizableColumns = (columnslist?: ResizableProps[]) => {
   const [columns, setColumns] = React.useState<ResizableProps[]>([]);
+  const startX = useRef<any>(0);
   useEffect(() => {
-    let columns = columnslist.map((col, index) => ({
+    if (columnslist?.length) {
+      setComColumnslist(columnslist);
+    }
+  }, []);
+
+  const setComColumnslist = (columnslist: any) => {
+    let columns = columnslist?.map((col: any, index: any) => ({
       ...col,
-      onHeaderCell: (column: any) => ({
-        width: column.width,
-        onResize: handleResize(index),
-      }),
+      onHeaderCell: !col.onHeaderCell
+        ? (column: any) => ({
+            width: column.width,
+            onResize: handleResize(index),
+          })
+        : col.onHeaderCell,
     }));
-    setColumns(columns);
-  }, [columnslist]);
+    columns && setColumns(columns);
+  };
 
   const handleResize =
     (index: any) =>
     (e: any, { size }: any) => {
+      console.log(e.clientX - startX.current, "size");
+      // e.c
       startTransition(() => {
-        setColumns((columns) => {
+        setColumns((columns: any) => {
           const nextColumns = [...columns];
           nextColumns[index] = {
             ...nextColumns[index],
-            width: size.width,
+            width: columns[index].width + (e.clientX - startX.current),
           };
           return nextColumns;
         });
       });
     };
+
+  const handleColResizeStart = (e: any, { size }: any) => {
+    console.log(e.clientX, "size");
+    startX.current = e.clientX;
+  };
 
   const ResizableTitle = (props: any) => {
     const { onResize, width, ...restProps } = props;
@@ -118,21 +134,27 @@ const useResizableColumns = (columnslist: ResizableProps[]) => {
             }}
           />
         }
-        onResize={onResize}
+        // onResize={onResize}
+        onResizeStart={handleColResizeStart}
+        onResizeStop={onResize}
         draggableOpts={{ enableUserSelectHack: false }}
       >
         <th {...restProps} />
       </Resizable>
     );
   };
-
+  console.log(columns, "prop2222s");
   const components = useRef({
     header: {
       cell: ResizableTitle,
     },
   });
 
-  return { components: components.current, columns, setColumns };
+  const setResizableColumns = (columnslist: any) => {
+    setComColumnslist(columnslist);
+  };
+
+  return { components: components, columns, setResizableColumns };
 };
 
 export { useSiderDragWidth, useResizableColumns };

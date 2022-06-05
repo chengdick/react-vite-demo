@@ -7,6 +7,7 @@ import { Resizable } from "react-resizable";
 import request from "@/utils/http";
 import "./index.less";
 import { useResizableColumns } from "@/hooks";
+import { useEffect } from "react";
 type GithubIssueItem = {
   url: string;
   id: number;
@@ -150,14 +151,14 @@ const menu = (
 
 export default () => {
   const actionRef = useRef<ActionType>();
-  // const [columns, setColumns] = React.useState(columnslist);
-  const { components, columns } = useResizableColumns(columnslist as any);
-
-  console.log(columns, "llll");
+  const { components, columns, setResizableColumns } = useResizableColumns();
+  useEffect(() => {
+    setResizableColumns(columnslist as any);
+  }, []);
 
   return (
     <ProTable<GithubIssueItem>
-      components={components}
+      components={components.current}
       // bordered
       columns={columns}
       actionRef={actionRef}
@@ -189,7 +190,20 @@ export default () => {
       dateFormatter="string"
       headerTitle="高级表格"
       toolBarRender={() => [
-        <Button key="button" icon={<PlusOutlined />} type="primary">
+        <Button
+          key="button"
+          icon={<PlusOutlined />}
+          type="primary"
+          onClick={() => [
+            setResizableColumns([
+              ...columns,
+              // {
+              //   dataIndex: "index11",
+              //   width: 48,
+              // },
+            ]),
+          ]}
+        >
           新建
         </Button>,
         <Dropdown key="menu" overlay={menu}>
