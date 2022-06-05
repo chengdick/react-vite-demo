@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-
+import React from "react";
+import { useEffect, useState, useRef, startTransition } from "react";
+import { Resizable } from "react-resizable";
 interface DragMenuProps {
   initWidth?: number;
   parentClass?: string;
@@ -66,4 +67,72 @@ const useSiderDragWidth = ({
   return { width };
 };
 
-export { useSiderDragWidth };
+interface ResizableProps {
+  width?: number;
+}
+
+const useResizableColumns = (columnslist: ResizableProps[]) => {
+  const [columns, setColumns] = React.useState<ResizableProps[]>([]);
+  useEffect(() => {
+    let columns = columnslist.map((col, index) => ({
+      ...col,
+      onHeaderCell: (column: any) => ({
+        width: column.width,
+        onResize: handleResize(index),
+      }),
+    }));
+    setColumns(columns);
+  }, [columnslist]);
+
+  const handleResize =
+    (index: any) =>
+    (e: any, { size }: any) => {
+      startTransition(() => {
+        setColumns((columns) => {
+          const nextColumns = [...columns];
+          nextColumns[index] = {
+            ...nextColumns[index],
+            width: size.width,
+          };
+          return nextColumns;
+        });
+      });
+    };
+
+  const ResizableTitle = (props: any) => {
+    const { onResize, width, ...restProps } = props;
+
+    if (!width) {
+      return <th {...restProps} />;
+    }
+
+    return (
+      <Resizable
+        width={width}
+        height={0}
+        handle={
+          <span
+            className="react-resizable-handle"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          />
+        }
+        onResize={onResize}
+        draggableOpts={{ enableUserSelectHack: false }}
+      >
+        <th {...restProps} />
+      </Resizable>
+    );
+  };
+
+  const components = useRef({
+    header: {
+      cell: ResizableTitle,
+    },
+  });
+
+  return { components: components.current, columns, setColumns };
+};
+
+export { useSiderDragWidth, useResizableColumns };

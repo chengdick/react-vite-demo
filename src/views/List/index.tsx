@@ -6,6 +6,7 @@ import ProTable, { TableDropdown } from "@ant-design/pro-table/es/";
 import { Resizable } from "react-resizable";
 import request from "@/utils/http";
 import "./index.less";
+import { useResizableColumns } from "@/hooks";
 type GithubIssueItem = {
   url: string;
   id: number;
@@ -32,8 +33,8 @@ const columnslist: ProColumns<GithubIssueItem>[] = [
     title: "标题",
     dataIndex: "title",
     copyable: true,
-    ellipsis: true,
-    tip: "标题过长会自动收缩",
+    // ellipsis: true,
+    // tip: "标题过长会自动收缩",
     width: 300,
     formItemProps: {
       rules: [
@@ -149,77 +150,16 @@ const menu = (
 
 export default () => {
   const actionRef = useRef<ActionType>();
-  const [columns, setColumns] = React.useState(columnslist);
-  const handleResize =
-    (index: any) =>
-    (e: any, { size }: any) => {
-      console.log(size), "=1111===";
+  // const [columns, setColumns] = React.useState(columnslist);
+  const { components, columns } = useResizableColumns(columnslist as any);
 
-      setColumns((columns) => {
-        console.log(columns);
-        const nextColumns = [...columns];
-        nextColumns[index] = {
-          ...nextColumns[index],
-          width: size.width,
-        };
-        console.log(nextColumns);
-        // return nextColumns;
-        return nextColumns;
-      });
-      // this.setState(({ columns }) => {
-      //   const nextColumns = [...columns];
-      //   nextColumns[index] = {
-      //     ...nextColumns[index],
-      //     width: size.width,
-      //   };
-      //   return { columns: nextColumns };
-      // });
-    };
+  console.log(columns, "llll");
 
-  const ResizableTitle = (props: any) => {
-    const { onResize, width, ...restProps } = props;
-
-    if (!width) {
-      return <th {...restProps} />;
-    }
-
-    return (
-      <Resizable
-        width={width}
-        height={0}
-        handle={
-          <span
-            className="react-resizable-handle"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-        }
-        onResize={onResize}
-        draggableOpts={{ enableUserSelectHack: false }}
-      >
-        <th {...restProps} />
-      </Resizable>
-    );
-  };
-
-  const components = useRef({
-    header: {
-      cell: ResizableTitle,
-    },
-  });
-  // console.log(columns, "ll");
   return (
     <ProTable<GithubIssueItem>
-      components={components.current}
+      components={components}
       // bordered
-      columns={columns.map((col, index) => ({
-        ...col,
-        onHeaderCell: (column: any) => ({
-          width: column.width,
-          onResize: handleResize(index),
-        }),
-      }))}
+      columns={columns}
       actionRef={actionRef}
       cardBordered
       request={async (params = {}, sort, filter) => {
