@@ -8,7 +8,6 @@ import {
 import { AsyncComponent } from "./components/AsyncComponent";
 import Layout from "./components/Layout";
 import "@/assets/style/app.less";
-import { a } from "@/utils/const";
 ConfigProvider.config({
   theme: {
     primaryColor: "#25b864",

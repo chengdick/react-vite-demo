@@ -7,6 +7,7 @@ const menus: any = [
     name: "首页",
     icon: <CrownOutlined />,
     component: "Dashboard",
+    layout: false,
   },
   {
     path: "/role",
@@ -36,6 +37,13 @@ const menus: any = [
     name: "ReactGridLayout",
     icon: <CrownOutlined />,
     component: "ReactGridLayout",
+  },
+  {
+    path: "/visualization",
+    //   key: '/dashboard',
+    name: "Visualization",
+    icon: <CrownOutlined />,
+    component: "Visualization",
   },
 ];
 

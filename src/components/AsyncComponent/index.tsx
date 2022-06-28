@@ -40,6 +40,7 @@ class AsyncComponent extends React.Component<any> {
       );
     }
     const Compontents = React.lazy(CompontentsImport as any);
+    console.log(CompontentsImport);
     return (
       <React.Suspense
         fallback={

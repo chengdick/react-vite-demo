@@ -1,7 +1,7 @@
 import { Button, ConfigProvider, DatePicker, Result } from "antd";
 import { useState } from "react";
 // import RcViewer from "@hanyk/rc-viewer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "@/assets/image/xingshi.png";
 import { Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css"; // only needs to be imported once
@@ -13,9 +13,29 @@ const Dashboard = () => {
     { name: "Brian Vaughn", description: "Software engineer" },
     // And so on...
   ];
+  const navigate = useNavigate();
+  // const [form] = Form.useForm()
+
   return (
     <div>
-      <Hello />
+      {/* <Hello /> */}
+      <div
+        onClick={() => {
+          // alert(1);
+          navigate(
+            {
+              pathname: "/role/list",
+              search: "?name=hanyk",
+              hash: "#hash",
+            },
+            {
+              state: {},
+            }
+          );
+        }}
+      >
+        1212
+      </div>
       {/* <Button type="primary">11111</Button>
       <Button type="primary">
         <Link to="/dashboard">返回首页</Link>
