@@ -32,4 +32,5 @@ const App = (): any => {
     </Router>
   );
 };
+
 export default App;
