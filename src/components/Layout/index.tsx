@@ -36,7 +36,6 @@ const RoutesPage: React.FC = () => {
 };
 
 const defaultProps = { routes: menus };
-
 export default () => {
   const location = useLocation();
   const [pathname, setPathname] = useState<string>();
