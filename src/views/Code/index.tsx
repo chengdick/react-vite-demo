@@ -1,11 +1,34 @@
 import { useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
-import Button from "antd/es/button";
+import { Button, message } from "antd";
 import { LiveProvider, LiveError, LivePreview } from "react-live";
+
 import "antd/dist/antd.css";
 import { download } from "../../utils/const";
 import "./index.less";
 import { Space } from "antd";
+import transform from "./transform";
+import errorBoundary from "./errorBoundary";
+
+async function transpileAsync(code: any, scope: any) {
+  try {
+    const evalCode = (code: any, scope: any) => {
+      const codeTrimmed = code.trim().replace(/;$/, "");
+      // NOTE: Workaround for classes and arrow functions.
+      const transformed = transform(`return (${codeTrimmed})`).trim();
+      const scopeKeys = Object.keys(scope);
+      const scopeValues = scopeKeys.map((key) => scope[key]);
+      return new Function(...scopeKeys, transformed)(...scopeValues);
+    };
+    errorBoundary(evalCode(code, scope), (e: any) => {
+      return e;
+    });
+    return false;
+  } catch (e) {
+    return e;
+  }
+}
+
 export default function HomePage() {
   const editorRef: any = useRef();
   const [data, setData] = useState(`
@@ -53,12 +76,24 @@ export default function HomePage() {
 
   return (
     <div className="code">
+      <div>{/* <Box /> */}</div>
       <div>
         <Space>
           <Button
             type="primary"
-            onClick={() => {
-              setData(editorRef.current.getValue());
+            onClick={async () => {
+              try {
+                const res = await transpileAsync(editorRef.current.getValue(), {
+                  Button,
+                });
+                if (res) {
+                  message.error(res.toString());
+                } else {
+                  setData(editorRef.current.getValue());
+                }
+              } catch (e) {
+                message.error("编译错误");
+              }
             }}
           >
             运行
@@ -70,6 +105,23 @@ export default function HomePage() {
             }}
           >
             下载
+          </Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              // download();
+              const codeTrimmed = editorRef.current
+                .getValue()
+                .trim()
+                .replace(/;$/, "");
+              // NOTE: Workaround for classes and arrow functions.
+              const transformed = transform(
+                `export default (${codeTrimmed})`
+              ).trim();
+              download(transformed);
+            }}
+          >
+            下载编译后的文件
           </Button>
         </Space>
       </div>
