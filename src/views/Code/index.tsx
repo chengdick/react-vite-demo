@@ -1,25 +1,25 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
-import { Button, message } from "antd";
+import { Button, message, Spin } from "antd";
 import { LiveProvider, LiveError, LivePreview } from "react-live";
 
-import "antd/dist/antd.css";
 import { download } from "../../utils/const";
 import "./index.less";
 import { Space } from "antd";
 import transform from "./transform";
 import errorBoundary from "./errorBoundary";
-
+import { LiveComPreview } from "./LiveComPreview";
+const evalCode = (code: any, scope: any) => {
+  const codeTrimmed = code.trim().replace(/;$/, "");
+  // NOTE: Workaround for classes and arrow functions.
+  const transformed = transform(`return (${codeTrimmed})`).trim();
+  const scopeKeys = Object.keys(scope);
+  const scopeValues = scopeKeys.map((key) => scope[key]);
+  console.log(new Function(...scopeKeys, transformed)(...scopeValues), "----");
+  return new Function(...scopeKeys, transformed)(...scopeValues);
+};
 async function transpileAsync(code: any, scope: any) {
   try {
-    const evalCode = (code: any, scope: any) => {
-      const codeTrimmed = code.trim().replace(/;$/, "");
-      // NOTE: Workaround for classes and arrow functions.
-      const transformed = transform(`return (${codeTrimmed})`).trim();
-      const scopeKeys = Object.keys(scope);
-      const scopeValues = scopeKeys.map((key) => scope[key]);
-      return new Function(...scopeKeys, transformed)(...scopeValues);
-    };
     errorBoundary(evalCode(code, scope), (e: any) => {
       return e;
     });
@@ -32,15 +32,15 @@ async function transpileAsync(code: any, scope: any) {
 export default function HomePage() {
   const editorRef: any = useRef();
   const [data, setData] = useState(`
-() => (
-    <div>
-        <Button type="primary">Primary</Button>
-        <Button>Default</Button>
-        <Button type="dashed">Dashed</Button>
-        <Button type="danger">Danger</Button>
-        <Button type="link">Link</Button>
-    </div>
-)
+  () => (
+        <div>
+            <Button type="primary">Primary</Button>
+            <Button>Default</Button>
+            <Button type="dashed">Dashed</Button>
+            <Button type="danger">Danger</Button>
+            <Button type="link">Link</Button>
+        </div>
+    )
   `);
   const transSug = (items: any) => {
     const newSug = [...items, "and", "or", "(", ")"].map((item) => {
@@ -76,7 +76,10 @@ export default function HomePage() {
 
   return (
     <div className="code">
-      <div>{/* <Box /> */}</div>
+      <div>
+        <LiveComPreview code={data} scope={{ Button, React }} />
+        <div>111</div>
+      </div>
       <div>
         <Space>
           <Button
@@ -109,16 +112,16 @@ export default function HomePage() {
           <Button
             type="primary"
             onClick={() => {
-              // download();
-              const codeTrimmed = editorRef.current
-                .getValue()
-                .trim()
-                .replace(/;$/, "");
-              // NOTE: Workaround for classes and arrow functions.
-              const transformed = transform(
-                `export default (${codeTrimmed})`
-              ).trim();
-              download(transformed);
+              // // download();
+              // const codeTrimmed = editorRef.current
+              //   .getValue()
+              //   .trim()
+              //   .replace(/;$/, "");
+              // // NOTE: Workaround for classes and arrow functions.
+              // const transformed = transform(
+              //   `const home = ${codeTrimmed}; export { home } `
+              // ).trim();
+              // download(transformed);
             }}
           >
             下载编译后的文件
