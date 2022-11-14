@@ -15,7 +15,6 @@ const evalCode = (code: any, scope: any) => {
   const transformed = transform(`return (${codeTrimmed})`).trim();
   const scopeKeys = Object.keys(scope);
   const scopeValues = scopeKeys.map((key) => scope[key]);
-  console.log(new Function(...scopeKeys, transformed)(...scopeValues), "----");
   return new Function(...scopeKeys, transformed)(...scopeValues);
 };
 async function transpileAsync(code: any, scope: any) {

@@ -16,6 +16,13 @@ const menus: any = [
     component: "Code",
   },
   {
+    path: "/style",
+    //   key: '/dashboard',
+    name: "首页",
+    icon: <CrownOutlined />,
+    component: "StyleSetter",
+  },
+  {
     path: "/role",
     //   key: '/role',
     name: "角色",
