@@ -11,16 +11,23 @@ const menus: any = [
   {
     path: "/code",
     //   key: '/dashboard',
-    name: "首页",
+    name: "编辑器",
     icon: <CrownOutlined />,
     component: "Code",
   },
   {
     path: "/style",
     //   key: '/dashboard',
-    name: "首页",
+    name: "样式组件",
     icon: <CrownOutlined />,
     component: "StyleSetter",
+  },
+  {
+    path: "/gridlayout",
+    //   key: '/dashboard',
+    name: "样式组件",
+    icon: <CrownOutlined />,
+    component: "GridLayout",
   },
   {
     path: "/role",
