@@ -30,6 +30,13 @@ const menus: any = [
     component: "GridLayout",
   },
   {
+    path: "/kitchen",
+    //   key: '/dashboard',
+    name: "编辑器组建",
+    icon: <CrownOutlined />,
+    component: "Kitchen",
+  },
+  {
     path: "/role",
     //   key: '/role',
     name: "角色",
