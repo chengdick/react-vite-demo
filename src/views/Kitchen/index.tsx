@@ -43,11 +43,22 @@ export default function Demo() {
 ];
 
 export default () => {
+  const ref = React.useRef(null);
+
   return (
-    <Playground
-      style={{ height: 500 }}
-      initialFiles={files}
-      require={customRequire}
-    />
+    <div>
+      <Playground
+        style={{ height: 500 }}
+        initialFiles={files}
+        require={customRequire}
+      />
+      <antd.Button
+        onClick={() => {
+          console.log(ref, "lll");
+        }}
+      >
+        保存
+      </antd.Button>
+    </div>
   );
 };
