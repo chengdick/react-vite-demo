@@ -12,7 +12,7 @@ ConfigProvider.config({
     primaryColor: "#25b864",
   },
 });
-console.log(new WasmPlayer());
+// console.log(new WasmPlayer());
 const App = (): any => {
   return (
     <Router>

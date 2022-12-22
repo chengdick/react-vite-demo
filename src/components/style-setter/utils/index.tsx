@@ -94,13 +94,13 @@ export function hexify(color: string) {
   );
 }
 
-export function parseToCssCode(styleData: StyleData) {
+export function parseToCssCode(styleData: any) {
   const parseStyleData: any = {};
   for (const styleKey in styleData) {
     parseStyleData[toLine(styleKey)] = styleData[styleKey];
   }
 
-  const cssJson = {
+  const cssJson: any = {
     children: {
       "#main": {
         children: {},
@@ -112,7 +112,7 @@ export function parseToCssCode(styleData: StyleData) {
 }
 
 export function parseToStyleData(cssCode: string) {
-  const styleData = {};
+  const styleData: any = {};
   try {
     const cssJson = toJSON(cssCode);
     const cssJsonData = cssJson?.children?.["#main"]?.attributes;

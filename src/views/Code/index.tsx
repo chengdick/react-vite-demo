@@ -9,6 +9,7 @@ import { Space } from "antd";
 import transform from "./transform";
 import errorBoundary from "./errorBoundary";
 import { LiveComPreview } from "./LiveComPreview";
+import { useEffect } from "react";
 const evalCode = (code: any, scope: any) => {
   const codeTrimmed = code.trim().replace(/;$/, "");
   // NOTE: Workaround for classes and arrow functions.
@@ -73,6 +74,10 @@ export default function HomePage() {
     }
   };
 
+  useEffect(() => {
+    console.log(12121212121);
+  }, []);
+
   return (
     <div className="code">
       <div>
@@ -85,9 +90,12 @@ export default function HomePage() {
             type="primary"
             onClick={async () => {
               try {
-                const res = await transpileAsync(editorRef.current.getValue(), {
-                  Button,
-                });
+                const res: any = await transpileAsync(
+                  editorRef.current.getValue(),
+                  {
+                    Button,
+                  }
+                );
                 if (res) {
                   message.error(res.toString());
                 } else {
